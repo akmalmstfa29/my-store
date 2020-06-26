@@ -1,0 +1,628 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/labels":
+    get:
+      summary: Retrieves label list
+      tags:
+      - Labels
+      responses:
+        '200':
+          description: label found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    created_at:
+                      type: string
+                    updated_at:
+                      type: string
+                description:
+                  type: string
+            application/xml:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    created_at:
+                      type: string
+                    updated_at:
+                      type: string
+                description:
+                  type: string
+        '406':
+          description: unsupported accept header
+          content: {}
+    post:
+      summary: Create a label
+      tags:
+      - Labels
+      parameters: []
+      responses:
+        '201':
+          description: label created
+          content: {}
+        '422':
+          description: invalid request
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+              required:
+              - name
+  "/api/v1/labels/{id}":
+    patch:
+      summary: Edit a label
+      tags:
+      - Labels
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '201':
+          description: label created
+          content: {}
+        '422':
+          description: invalid request
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+              required:
+              - name
+    get:
+      summary: Retrieves a label
+      tags:
+      - Labels
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: label found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                description:
+                  type: string
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                description:
+                  type: string
+        '404':
+          description: label not found
+          content: {}
+        '406':
+          description: unsupported accept header
+          content: {}
+    delete:
+      summary: Delete a label
+      tags:
+      - Labels
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: label deleted
+          content: {}
+        '422':
+          description: invalid request
+          content: {}
+  "/api/v1/products":
+    get:
+      summary: Retrieves product list
+      tags:
+      - Products
+      responses:
+        '200':
+          description: product found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    price:
+                      type: integer
+                    store_id:
+                      type: integer
+                    store:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        phone_number:
+                          type: string
+                    labels:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                    description:
+                      type: string
+                    created_at:
+                      type: string
+                    updated_at:
+                      type: string
+                description:
+                  type: string
+            application/xml:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    price:
+                      type: integer
+                    store_id:
+                      type: integer
+                    store:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        phone_number:
+                          type: string
+                    labels:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                    description:
+                      type: string
+                    created_at:
+                      type: string
+                    updated_at:
+                      type: string
+                description:
+                  type: string
+        '406':
+          description: unsupported accept header
+          content: {}
+    post:
+      summary: Create a product
+      tags:
+      - Products
+      parameters: []
+      responses:
+        '201':
+          description: product created
+          content: {}
+        '422':
+          description: invalid request
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                price:
+                  type: integer
+                store_id:
+                  type: integer
+                label_ids:
+                  type: array
+                  items:
+                    type: integer
+                description:
+                  type: string
+              required:
+              - name
+              - price
+  "/api/v1/products/{id}":
+    patch:
+      summary: Edit a product
+      tags:
+      - Products
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '201':
+          description: product created
+          content: {}
+        '422':
+          description: invalid request
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                price:
+                  type: integer
+                store_id:
+                  type: integer
+                label_ids:
+                  type: array
+                  items:
+                    type: integer
+                description:
+                  type: string
+                created_at:
+                  type: string
+                updated_at:
+                  type: string
+              required:
+              - name
+              - price
+    get:
+      summary: Retrieves a product
+      tags:
+      - Products
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: product found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  store_id:
+                    type: integer
+                  store:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      phone_number:
+                        type: string
+                  labels:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                  description:
+                    type: string
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                description:
+                  type: string
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  store_id:
+                    type: integer
+                  store:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      phone_number:
+                        type: string
+                  labels:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                  description:
+                    type: string
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                description:
+                  type: string
+        '404':
+          description: product not found
+          content: {}
+        '406':
+          description: unsupported accept header
+          content: {}
+    delete:
+      summary: Delete a product
+      tags:
+      - Products
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: product deleted
+          content: {}
+        '422':
+          description: invalid request
+          content: {}
+  "/api/v1/stores":
+    get:
+      summary: Retrieves store list
+      tags:
+      - Stores
+      responses:
+        '200':
+          description: store found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    phone_number:
+                      type: string
+                    description:
+                      type: string
+                    created_at:
+                      type: string
+                    updated_at:
+                      type: string
+                description:
+                  type: string
+            application/xml:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    phone_number:
+                      type: string
+                    description:
+                      type: string
+                    created_at:
+                      type: string
+                    updated_at:
+                      type: string
+                description:
+                  type: string
+        '406':
+          description: unsupported accept header
+          content: {}
+    post:
+      summary: Create a store
+      tags:
+      - Stores
+      parameters: []
+      responses:
+        '201':
+          description: store created
+          content: {}
+        '422':
+          description: invalid request
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                phone_number:
+                  type: string
+                description:
+                  type: string
+              required:
+              - name
+              - phone_number
+  "/api/v1/stores/{id}":
+    patch:
+      summary: Edit a store
+      tags:
+      - Stores
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '201':
+          description: store created
+          content: {}
+        '422':
+          description: invalid request
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                phone_number:
+                  type: string
+                description:
+                  type: string
+                created_at:
+                  type: string
+                updated_at:
+                  type: string
+              required:
+              - name
+              - phone_number
+    get:
+      summary: Retrieves a store
+      tags:
+      - Stores
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: store found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                description:
+                  type: string
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                description:
+                  type: string
+        '404':
+          description: store not found
+          content: {}
+        '406':
+          description: unsupported accept header
+          content: {}
+    delete:
+      summary: Delete a store
+      tags:
+      - Stores
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: store deleted
+          content: {}
+        '422':
+          description: invalid request
+          content: {}
+servers:
+- url: http://localhost:3000
+  variables:
+    defaultHost:
+      default: localhost:3000
