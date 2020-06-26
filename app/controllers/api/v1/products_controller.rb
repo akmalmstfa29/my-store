@@ -5,17 +5,34 @@ class Api::V1::ProductsController < ApplicationController
   def index
     @products = Product.all
 
-    render json: @products
+    render json: @products, include: {
+      store: {
+        only: [:name,:phone_number]
+      },
+      labels: {
+        only: [:name]
+      }
+    }
   end
 
   # GET /products/1
   def show
-    render json: @product
+    render json: @product, include: {
+      store: {
+        only: [:name,:phone_number]
+      },
+      labels: {
+        only: [:name]
+      }
+    }
   end
 
   # POST /products
   def create
     @product = Product.new(product_params)
+
+    # labels = Label.find(params[:label_ids])
+    # @product.label_ids == params[:label_ids]
 
     if @product.save
       render json: @product, status: :created
@@ -46,6 +63,6 @@ class Api::V1::ProductsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def product_params
-      params.require(:product).permit(:name, :price, :description, :store_id)
+      params.require(:product).permit(:name, :price, :description, :store_id, :label_ids => [])
     end
 end
