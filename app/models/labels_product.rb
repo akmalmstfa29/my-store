@@ -1,0 +1,2 @@
+class LabelsProduct < ApplicationRecord
+end
